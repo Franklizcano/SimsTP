@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -40,8 +41,12 @@ class PersonaRestController {
 
     @PostMapping("")
     fun insert(@RequestBody persona: Persona): ResponseEntity<Any> {
+        println(persona)
+        if (persona.nombre === null) {
+            println("Es null")
+        }
         return try {
-            personaBusiness!!.save(persona)
+            //personaBusiness!!.save(persona)
             val responseHeader = HttpHeaders()
             responseHeader.set("location", Constants.URL_BASE_PERSONAS + "/" + persona.id)
             ResponseEntity(responseHeader, HttpStatus.CREATED)
@@ -51,7 +56,7 @@ class PersonaRestController {
     }
 
     @PutMapping("")
-    fun update(@RequestBody persona: Persona): ResponseEntity<Any> {
+    fun update(@RequestBody @Validated persona: Persona): ResponseEntity<Any> {
         return try {
             personaBusiness!!.save(persona)
             ResponseEntity(HttpStatus.OK)
