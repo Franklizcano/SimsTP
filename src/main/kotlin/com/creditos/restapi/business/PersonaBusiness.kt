@@ -43,9 +43,10 @@ class PersonaBusiness : iPersonaBusiness {
 
     @Throws(BusinessException::class)
     override fun save(persona: Persona): Persona {
+
         try {
             return personaRepository!!.save(persona)
-        } catch (e: Exception) {
+        }catch (e:Exception){
             throw BusinessException(e.message)
         }
     }
@@ -56,16 +57,16 @@ class PersonaBusiness : iPersonaBusiness {
 
         try {
             op = personaRepository!!.findById(idPersona)
-        } catch (e: Exception) {
+        }catch (e:Exception){
             throw BusinessException(e.message)
         }
 
-        if (!op.isPresent) {
+        if(!op.isPresent){
             throw NotFoundException("No se encontró la persona con id $idPersona")
-        } else {
+        }else{
             try {
                 personaRepository!!.deleteById(idPersona)
-            } catch (e: Exception) {
+            }catch (e:Exception){
                 throw BusinessException(e.message)
             }
         }
