@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-//import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import kotlin.system.exitProcess
 
@@ -54,6 +53,14 @@ class PersonaRestController {
             } catch (e: BusinessException) {
                 ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
             }
+
+        return try {
+            personaBusiness!!.save(persona)
+            val responseHeader = HttpHeaders()
+            responseHeader.set("location", Constants.URL_BASE_PERSONAS + "/" + persona.id)
+            ResponseEntity(responseHeader, HttpStatus.CREATED)
+        } catch (e: BusinessException) {
+            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 
