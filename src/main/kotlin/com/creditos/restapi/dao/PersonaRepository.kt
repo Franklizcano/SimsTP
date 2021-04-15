@@ -10,13 +10,3 @@ import java.time.LocalDate
 interface PersonaRepository: JpaRepository<Persona,Long> {
 
 }
-
-fun esFechaValida(anio: Int, dia: Int, mes: Int): Boolean {
-    var esFechaValida = true
-    try {
-        LocalDate.of(anio, mes, dia)
-    } catch (e: DateTimeException) {
-        esFechaValida = false
-    }
-    return esFechaValida
-}

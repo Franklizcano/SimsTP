@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.validation.annotation.Validated
+//import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import kotlin.system.exitProcess
 
 @RestController
 @RequestMapping(Constants.URL_BASE_PERSONAS)
@@ -41,22 +42,23 @@ class PersonaRestController {
 
     @PostMapping("")
     fun insert(@RequestBody persona: Persona): ResponseEntity<Any> {
-        println(persona)
-        if (persona.nombre === null) {
-            println("Es null")
-        }
-        return try {
-            //personaBusiness!!.save(persona)
-            val responseHeader = HttpHeaders()
-            responseHeader.set("location", Constants.URL_BASE_PERSONAS + "/" + persona.id)
-            ResponseEntity(responseHeader, HttpStatus.CREATED)
-        } catch (e: BusinessException) {
-            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        if (persona.nombre.length <= 4) {
+            println("Este nombre es muy corto")
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        } else {
+            return try {
+                personaBusiness!!.save(persona)
+                val responseHeader = HttpHeaders()
+                responseHeader.set("location", Constants.URL_BASE_PERSONAS + "/" + persona.id)
+                ResponseEntity(responseHeader, HttpStatus.CREATED)
+            } catch (e: BusinessException) {
+                ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+            }
         }
     }
 
     @PutMapping("")
-    fun update(@RequestBody @Validated persona: Persona): ResponseEntity<Any> {
+    fun update(@RequestBody persona: Persona): ResponseEntity<Any> {
         return try {
             personaBusiness!!.save(persona)
             ResponseEntity(HttpStatus.OK)
@@ -76,4 +78,5 @@ class PersonaRestController {
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
+
 }
