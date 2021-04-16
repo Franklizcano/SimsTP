@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 @Repository
 interface PersonaRepository: JpaRepository<Persona,Long> {
-
 }

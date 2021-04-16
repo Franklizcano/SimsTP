@@ -43,6 +43,7 @@ class PersonaBusiness : iPersonaBusiness {
 
     @Throws(BusinessException::class)
     override fun save(persona: Persona): Persona {
+
         try {
             return personaRepository.save(persona)
         } catch (e: Exception) {
@@ -60,9 +61,9 @@ class PersonaBusiness : iPersonaBusiness {
             throw BusinessException(e.message)
         }
 
-        if (!op.isPresent) {
+        if(!op.isPresent){
             throw NotFoundException("No se encontró la persona con id $idPersona")
-        } else {
+        }else{
             try {
                 personaRepository.deleteById(idPersona)
             } catch (e: Exception) {
