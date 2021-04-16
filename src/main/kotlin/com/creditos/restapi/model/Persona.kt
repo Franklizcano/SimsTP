@@ -8,6 +8,7 @@ import javax.persistence.*;
 data class Persona(val dni:Long = 0, val nombre:String = "", val apellido:String = "", val fechaNac: LocalDate? = null, val domicilio:String = ""){
 
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id:Long = 0

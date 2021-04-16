@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import kotlin.system.exitProcess
 
 @RestController
 @RequestMapping(Constants.URL_BASE_PERSONAS)
@@ -40,6 +41,19 @@ class PersonaRestController {
 
     @PostMapping("")
     fun insert(@RequestBody persona: Persona): ResponseEntity<Any> {
+        if (persona.nombre.length <= 4) {
+            println("Este nombre es muy corto")
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        } else {
+            return try {
+                personaBusiness!!.save(persona)
+                val responseHeader = HttpHeaders()
+                responseHeader.set("location", Constants.URL_BASE_PERSONAS + "/" + persona.id)
+                ResponseEntity(responseHeader, HttpStatus.CREATED)
+            } catch (e: BusinessException) {
+                ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+            }
+
         return try {
             personaBusiness!!.save(persona)
             val responseHeader = HttpHeaders()
@@ -71,4 +85,5 @@ class PersonaRestController {
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
+
 }
