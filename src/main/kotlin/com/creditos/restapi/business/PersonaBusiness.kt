@@ -13,13 +13,13 @@ import kotlin.jvm.Throws
 class PersonaBusiness : iPersonaBusiness {
 
     @Autowired
-    val personaRepository: PersonaRepository? = null
+    private lateinit var personaRepository:PersonaRepository
 
     @Throws(BusinessException::class, NotFoundException::class)
     override fun list(): List<Persona> {
 
         try {
-            return personaRepository!!.findAll()
+            return personaRepository.findAll()
         } catch (e: Exception) {
             throw BusinessException(e.message)
         }
@@ -29,7 +29,7 @@ class PersonaBusiness : iPersonaBusiness {
         val op: Optional<Persona>
 
         try {
-            op = personaRepository!!.findById(idPersona)
+            op = personaRepository.findById(idPersona)
         } catch (e: Exception) {
             throw BusinessException(e.message)
         }
@@ -44,7 +44,7 @@ class PersonaBusiness : iPersonaBusiness {
     @Throws(BusinessException::class)
     override fun save(persona: Persona): Persona {
         try {
-            return personaRepository!!.save(persona)
+            return personaRepository.save(persona)
         } catch (e: Exception) {
             throw BusinessException(e.message)
         }
@@ -55,7 +55,7 @@ class PersonaBusiness : iPersonaBusiness {
         val op: Optional<Persona>
 
         try {
-            op = personaRepository!!.findById(idPersona)
+            op = personaRepository.findById(idPersona)
         } catch (e: Exception) {
             throw BusinessException(e.message)
         }
@@ -64,7 +64,7 @@ class PersonaBusiness : iPersonaBusiness {
             throw NotFoundException("No se encontró la persona con id $idPersona")
         } else {
             try {
-                personaRepository!!.deleteById(idPersona)
+                personaRepository.deleteById(idPersona)
             } catch (e: Exception) {
                 throw BusinessException(e.message)
             }

@@ -18,7 +18,7 @@ class RestapiApplication:CommandLineRunner{
 	override fun run(vararg args: String?) {
 
 		val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-		val persona1 = Persona(38333444,"Daniel", "Gutierrez", LocalDate.parse("25-06-1999", formatter))
+		val persona1 = Persona(38333444,"Daniel", "Gutierrez", LocalDate.parse("25-06-1999", formatter), "Buenos Aires")
 
 		personaRepository!!.save(persona1)
 	}
