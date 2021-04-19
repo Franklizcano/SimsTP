@@ -10,19 +10,18 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import kotlin.system.exitProcess
 
 @RestController
 @RequestMapping(Constants.URL_BASE_PERSONAS)
 class PersonaRestController {
 
     @Autowired
-    val personaBusiness: iPersonaBusiness? = null
+    private lateinit var personaBusiness:iPersonaBusiness
 
     @GetMapping("")
     fun list(): ResponseEntity<List<Persona>> {
         return try {
-            ResponseEntity(personaBusiness!!.list(), HttpStatus.OK)
+            ResponseEntity(personaBusiness.list(), HttpStatus.OK)
         } catch (e: Exception) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -31,7 +30,7 @@ class PersonaRestController {
     @GetMapping("/{id}")
     fun load(@PathVariable("id") idPersona: Long): ResponseEntity<Any> {
         return try {
-            ResponseEntity(personaBusiness!!.load(idPersona), HttpStatus.OK)
+            ResponseEntity(personaBusiness.load(idPersona), HttpStatus.OK)
         } catch (e: BusinessException) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         } catch (e: NotFoundException) {
@@ -46,28 +45,19 @@ class PersonaRestController {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         } else {
             return try {
-                personaBusiness!!.save(persona)
+                personaBusiness.save(persona)
                 val responseHeader = HttpHeaders()
                 responseHeader.set("location", Constants.URL_BASE_PERSONAS + "/" + persona.id)
                 ResponseEntity(responseHeader, HttpStatus.CREATED)
             } catch (e: BusinessException) {
                 ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
             }
-
-        return try {
-            personaBusiness!!.save(persona)
-            val responseHeader = HttpHeaders()
-            responseHeader.set("location", Constants.URL_BASE_PERSONAS + "/" + persona.id)
-            ResponseEntity(responseHeader, HttpStatus.CREATED)
-        } catch (e: BusinessException) {
-            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
-        }
     }
 
     @PutMapping("")
     fun update(@RequestBody persona: Persona): ResponseEntity<Any> {
         return try {
-            personaBusiness!!.save(persona)
+            personaBusiness.save(persona)
             ResponseEntity(HttpStatus.OK)
         } catch (e: BusinessException) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -77,7 +67,7 @@ class PersonaRestController {
     @DeleteMapping("/{id}")
     fun delete(@PathVariable("id") idPersona: Long): ResponseEntity<Any> {
         return try {
-            personaBusiness!!.remove(idPersona)
+            personaBusiness.remove(idPersona)
             ResponseEntity(HttpStatus.OK)
         } catch (e: BusinessException) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
