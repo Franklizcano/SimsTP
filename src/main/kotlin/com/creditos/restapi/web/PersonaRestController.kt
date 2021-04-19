@@ -52,15 +52,6 @@ class PersonaRestController {
             } catch (e: BusinessException) {
                 ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
             }
-
-        return try {
-            personaBusiness!!.save(persona)
-            val responseHeader = HttpHeaders()
-            responseHeader.set("location", Constants.URL_BASE_PERSONAS + "/" + persona.id)
-            ResponseEntity(responseHeader, HttpStatus.CREATED)
-        } catch (e: BusinessException) {
-            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
-        }
     }
 
     @PutMapping("")
