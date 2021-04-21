@@ -1,6 +1,6 @@
-package com.creditos.restapi.web
+package com.creditos.restapi.controller
 
-import com.creditos.restapi.business.iPersonaBusiness
+import com.creditos.restapi.business.BasicCrud
 import com.creditos.restapi.exception.BusinessException
 import com.creditos.restapi.exception.NotFoundException
 import com.creditos.restapi.model.Persona
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 class PersonaRestController {
 
     @Autowired
-    private lateinit var personaBusiness:iPersonaBusiness
+    private lateinit var personaBusiness:BasicCrud
 
     @GetMapping("")
     fun list(): ResponseEntity<List<Persona>> {
@@ -68,7 +68,7 @@ class PersonaRestController {
     fun delete(@PathVariable("id") idPersona: Long): ResponseEntity<Any> {
         return try {
             personaBusiness.remove(idPersona)
-            ResponseEntity(HttpStatus.OK)
+            ResponseEntity(HttpStatus.NO_CONTENT)
         } catch (e: BusinessException) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         } catch (e: BusinessException) {

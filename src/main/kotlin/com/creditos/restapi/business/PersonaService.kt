@@ -10,7 +10,7 @@ import java.util.*
 import kotlin.jvm.Throws
 
 @Service
-class PersonaBusiness : iPersonaBusiness {
+class PersonaService : BasicCrud {
 
     @Autowired
     private lateinit var personaRepository:PersonaRepository

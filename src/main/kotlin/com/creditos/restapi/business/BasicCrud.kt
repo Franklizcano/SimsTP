@@ -2,7 +2,7 @@ package com.creditos.restapi.business
 
 import com.creditos.restapi.model.Persona
 
-interface iPersonaBusiness {
+interface BasicCrud {
 
     fun list(): List<Persona>
     fun load(idPersona:Long): Persona
