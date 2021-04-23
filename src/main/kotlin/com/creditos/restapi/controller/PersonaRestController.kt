@@ -1,6 +1,6 @@
 package com.creditos.restapi.controller
 
-import com.creditos.restapi.business.BasicCrud
+import com.creditos.restapi.business.PersonaService
 import com.creditos.restapi.exception.BusinessException
 import com.creditos.restapi.exception.NotFoundException
 import com.creditos.restapi.model.Persona
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 class PersonaRestController {
 
     @Autowired
-    private lateinit var personaBusiness:BasicCrud
+    private lateinit var personaBusiness:PersonaService
 
     @GetMapping("")
     fun list(): ResponseEntity<List<Persona>> {
@@ -40,8 +40,8 @@ class PersonaRestController {
 
     @PostMapping("")
     fun insert(@RequestBody persona: Persona): ResponseEntity<Any> {
-        if (persona.nombre.length <= 4) {
-            println("Este nombre es muy corto")
+        if (persona.nombre.isEmpty() == true) {
+            println("El nombre esta vacio")
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         } else {
             return try {
@@ -52,28 +52,28 @@ class PersonaRestController {
             } catch (e: BusinessException) {
                 ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
             }
-    }
-
-    @PutMapping("")
-    fun update(@RequestBody persona: Persona): ResponseEntity<Any> {
-        return try {
-            personaBusiness.save(persona)
-            ResponseEntity(HttpStatus.OK)
-        } catch (e: BusinessException) {
-            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 
-    @DeleteMapping("/{id}")
-    fun delete(@PathVariable("id") idPersona: Long): ResponseEntity<Any> {
-        return try {
-            personaBusiness.remove(idPersona)
-            ResponseEntity(HttpStatus.NO_CONTENT)
-        } catch (e: BusinessException) {
-            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
-        } catch (e: BusinessException) {
-            ResponseEntity(HttpStatus.NOT_FOUND)
+        @PutMapping("")
+        fun update(@RequestBody persona: Persona): ResponseEntity<Any> {
+            return try {
+                personaBusiness.save(persona)
+                ResponseEntity(HttpStatus.OK)
+            } catch (e: BusinessException) {
+                ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+            }
+        }
+
+        @DeleteMapping("/{id}")
+        fun delete(@PathVariable("id") idPersona: Long): ResponseEntity<Any> {
+            return try {
+                personaBusiness.remove(idPersona)
+                ResponseEntity(HttpStatus.NO_CONTENT)
+            } catch (e: BusinessException) {
+                ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+            } catch (e: BusinessException) {
+                ResponseEntity(HttpStatus.NOT_FOUND)
+            }
         }
     }
-
-}

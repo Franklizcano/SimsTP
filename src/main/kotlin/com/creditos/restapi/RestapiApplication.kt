@@ -1,7 +1,9 @@
 package com.creditos.restapi
 
+import com.creditos.restapi.dao.LibroRepository
 import com.creditos.restapi.dao.PersonaRepository
 import com.creditos.restapi.exception.BusinessException
+import com.creditos.restapi.model.Libro
 import com.creditos.restapi.model.Persona
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
@@ -11,10 +13,13 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @SpringBootApplication
-class RestapiApplication:CommandLineRunner{
+class RestapiApplication:CommandLineRunner {
 
 	@Autowired
 	private lateinit var personaRepository: PersonaRepository
+
+	@Autowired
+	private lateinit var libroRepository: LibroRepository
 
 
 	override fun run(vararg args: String?) {
