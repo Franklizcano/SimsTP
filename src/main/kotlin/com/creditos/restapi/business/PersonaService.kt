@@ -63,7 +63,7 @@ class PersonaService : BasicCrud {
 
         if(!op.isPresent){
             throw NotFoundException("No se encontró la persona con id $idPersona")
-        }else{
+        } else {
             try {
                 personaRepository.deleteById(idPersona)
             } catch (e: Exception) {

@@ -6,11 +6,16 @@ import javax.persistence.*
 //@SequenceGenerator(name = "libroseq", sequenceName = "libro_seq")
 @Table(name = "libro")
 data class Libro(
-        val nombre:String = "",
-        val autor:String = ""
+        @Column
+        val nombre:String,
+        @Column
+        val autor:String
 )
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id:Long = 0
+    val id:Long = 0
+    //@ManyToOne(mappedBy = libro)
+    //@JoinColumn(name = "persona_id", nullable = true)
+    //private var persona: Persona
 }
