@@ -8,25 +8,22 @@ import com.creditos.restapi.dao.PersonaRepository
 import com.creditos.restapi.dao.LibroRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.ApplicationArguments
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.stereotype.Component
 
-@Component
+@SpringBootTest
 class RestapiApplicationTests {
 
 	@Autowired
 	private lateinit var personaRepository: PersonaRepository
 
-	@Autowired
-	private lateinit var libroRepository: LibroRepository
-
-	fun save(): String {
+	fun save() {
 		val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-		val persona1 =
-			Persona(38333444, "Daniel", "Gutierrez", LocalDate.parse("25-06-1999", formatter), "Buenos Aires")
+		val persona1 = Persona(
+				38333444, "Daniel", "Gutierrez", "La Plata",
+				listOf(Libro("Mapamundi", "Creador")),
+				LocalDate.parse("25-06-1999", formatter)
+			)
 		personaRepository.save(persona1)
-
-		val libro = Libro("Principito", "El creador")
-		libroRepository.save(libro)
-		return "Se crearon perfectamente los datos"
 	}
 }

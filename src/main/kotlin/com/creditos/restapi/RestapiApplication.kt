@@ -11,32 +11,36 @@ import org.springframework.boot.runApplication
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+fun main(args: Array<String>) {
+	runApplication<RestapiApplication>(*args)
+}
+
 @SpringBootApplication
 class RestapiApplication:CommandLineRunner {
 
 	@Autowired
 	private lateinit var personaRepository: PersonaRepository
-
 	@Autowired
 	private lateinit var libroRepository: LibroRepository
-
 
 	override fun run(vararg args: String?) {
 
 		val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-		val defaultpersona = Persona(38333444,"Daniel", "Gutierrez", LocalDate.parse("25-06-1999", formatter), "Buenos Aires")
-
-		personaRepository.save(defaultpersona)
-
-		val defaultLibro = Libro(
-			nombre = "Principito",
-			autor = "El autor"
+		val libros1 = listOf(
+			Libro("Principito", "El autor"),
+			Libro("Divina Comedia", "Dante Alighieri")
 		)
-
-		libroRepository.save(defaultLibro)
+		val defaultpersona = Persona(
+			38333444,
+			"Daniel",
+			"Gutierrez",
+			"Buenos Aires",
+			libros1,
+			LocalDate.parse("25-06-1999", formatter)
+		)
+		for (libro in libros1) {
+			libroRepository.save(libro)
+		}
+		personaRepository.save(defaultpersona)
 	}
-}
-
-fun main(args: Array<String>) {
-	runApplication<RestapiApplication>(*args)
 }

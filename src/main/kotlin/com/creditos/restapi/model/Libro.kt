@@ -9,13 +9,8 @@ data class Libro(
         @Column
         val nombre:String,
         @Column
-        val autor:String
+        val autor:String,
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id:Long? = null
 )
-{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id:Long = 0
-    //@ManyToOne(mappedBy = libro)
-    //@JoinColumn(name = "persona_id", nullable = true)
-    //private var persona: Persona
-}
