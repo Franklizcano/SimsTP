@@ -11,10 +11,6 @@ import org.springframework.boot.runApplication
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-fun main(args: Array<String>) {
-	runApplication<RestapiApplication>(*args)
-}
-
 @SpringBootApplication
 class RestapiApplication:CommandLineRunner {
 
@@ -43,4 +39,8 @@ class RestapiApplication:CommandLineRunner {
 		}
 		personaRepository.save(defaultpersona)
 	}
+}
+
+fun main(args: Array<String>) {
+	runApplication<RestapiApplication>(*args)
 }

@@ -12,9 +12,9 @@ data class Persona(
     val apellido: String,
     val domicilio: String,
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "persona_id")
+    @JoinColumn(name = "persona_id", nullable = true)
     val libros: List<Libro>,
-    val fechaNac: LocalDate? = LocalDate.now(),
+    val fechaNac: LocalDate? = null,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,

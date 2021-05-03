@@ -1,15 +1,23 @@
 package com.creditos.restapi.controller
 
+import com.creditos.restapi.business.LibroService
 import com.creditos.restapi.business.PersonaService
 import com.creditos.restapi.exception.BusinessException
 import com.creditos.restapi.exception.NotFoundException
 import com.creditos.restapi.model.Persona
 import com.creditos.restapi.utils.Constants
+import com.fasterxml.jackson.databind.util.JSONPObject
+import org.hibernate.EntityMode.parse
+import org.hibernate.engine.profile.Fetch.Style.parse
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.json.JsonParser
+import org.springframework.boot.json.JsonParserFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.net.HttpCookie.parse
+import java.util.logging.Level.parse
 
 @RestController
 @RequestMapping(Constants.URL_BASE_PERSONAS)
@@ -17,6 +25,9 @@ class PersonaRestController {
 
     @Autowired
     private lateinit var personaBusiness:PersonaService
+
+    @Autowired
+    private lateinit var libroBusiness:LibroService
 
     @GetMapping("")
     fun list(): ResponseEntity<List<Persona>> {
@@ -45,6 +56,10 @@ class PersonaRestController {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         } else {
             return try {
+                val objeto = persona.libros
+                for (libro in objeto) {
+                    libroBusiness.save(libro)
+                }
                 personaBusiness.save(persona)
                 val responseHeader = HttpHeaders()
                 responseHeader.set("location", Constants.URL_BASE_PERSONAS + "/" + persona.id)
