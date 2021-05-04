@@ -1,6 +1,5 @@
 package com.creditos.restapi
 
-import com.creditos.restapi.dao.LibroRepository
 import com.creditos.restapi.dao.PersonaRepository
 import com.creditos.restapi.model.Libro
 import com.creditos.restapi.model.Persona
@@ -16,8 +15,6 @@ class RestapiApplication:CommandLineRunner {
 
 	@Autowired
 	private lateinit var personaRepository: PersonaRepository
-	@Autowired
-	private lateinit var libroRepository: LibroRepository
 
 	override fun run(vararg args: String?) {
 
@@ -34,9 +31,6 @@ class RestapiApplication:CommandLineRunner {
 			libros1,
 			LocalDate.parse("25-06-1999", formatter)
 		)
-		for (libro in libros1) {
-			libroRepository.save(libro)
-		}
 		personaRepository.save(defaultpersona)
 	}
 }

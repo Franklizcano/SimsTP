@@ -11,10 +11,10 @@ data class Persona(
     val nombre: String,
     val apellido: String,
     val domicilio: String,
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = [CascadeType.ALL])
     @JoinColumn(name = "persona_id", nullable = true)
     val libros: List<Libro>,
-    val fechaNac: LocalDate? = null,
+    val fechaNac: LocalDate? = LocalDate.now(),
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,

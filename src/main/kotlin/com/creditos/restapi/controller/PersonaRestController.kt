@@ -12,9 +12,8 @@ import org.hibernate.engine.profile.Fetch.Style.parse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.json.JsonParser
 import org.springframework.boot.json.JsonParserFactory
-import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
+import org.springframework.http.*
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.net.HttpCookie.parse
 import java.util.logging.Level.parse
@@ -50,16 +49,12 @@ class PersonaRestController {
     }
 
     @PostMapping("")
-    fun insert(@RequestBody persona: Persona): ResponseEntity<Any> {
+    fun insert(@Validated @RequestBody persona: Persona): ResponseEntity<Any> {
         if (persona.nombre.isEmpty() == true) {
             println("El nombre esta vacio")
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         } else {
             return try {
-                val objeto = persona.libros
-                for (libro in objeto) {
-                    libroBusiness.save(libro)
-                }
                 personaBusiness.save(persona)
                 val responseHeader = HttpHeaders()
                 responseHeader.set("location", Constants.URL_BASE_PERSONAS + "/" + persona.id)
