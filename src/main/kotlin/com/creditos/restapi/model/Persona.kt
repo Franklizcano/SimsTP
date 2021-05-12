@@ -1,6 +1,5 @@
 package com.creditos.restapi.model
 
-
 import java.time.LocalDate
 import javax.persistence.*
 
@@ -8,19 +7,15 @@ import javax.persistence.*
 //@SequenceGenerator(name = "personaseq", sequenceName = "persona_seq")
 @Table(name = "persona")
 data class Persona(
-
     val dni: Long,
     val nombre: String,
     val apellido: String,
-    val fechaNac: LocalDate? = null,
     val domicilio: String,
-
-    /*@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "libro_id")
-    var libro_id: List<Persona> = emptyList()*/
-)
-{
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = [CascadeType.ALL])
+    @JoinColumn(name = "persona_id", nullable = true)
+    val libros: List<Libro>,
+    val fechaNac: LocalDate? = LocalDate.now(),
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id:Long = 0
-}
+    val id: Long? = null,
+)
