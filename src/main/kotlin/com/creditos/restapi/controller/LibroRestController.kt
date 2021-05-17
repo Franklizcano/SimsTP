@@ -45,10 +45,10 @@ class LibroRestController {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         } else {
             return try {
-                libroBusiness.save(libro)
-                val responseHeader = HttpHeaders()
-                responseHeader.set("location", Constants.URL_BASE_LIBROS + "/" + libro.id)
-                ResponseEntity(responseHeader, HttpStatus.CREATED)
+                //libroBusiness.save(libro)
+                //val responseHeader = HttpHeaders()
+                //responseHeader.set("location", Constants.URL_BASE_LIBROS + "/" + libro.id)
+                ResponseEntity(libroBusiness.save(libro), HttpStatus.CREATED)
             } catch (e: BusinessException) {
                 ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
             }
@@ -58,8 +58,7 @@ class LibroRestController {
     @PutMapping("")
     fun update(@RequestBody libro: Libro): ResponseEntity<Any> {
         return try {
-            libroBusiness.save(libro)
-            ResponseEntity(HttpStatus.OK)
+            ResponseEntity(libroBusiness.save(libro), HttpStatus.OK)
         } catch (e: BusinessException) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -68,11 +67,10 @@ class LibroRestController {
     @DeleteMapping("/{id}")
     fun delete(@PathVariable("id") idLibro: Long): ResponseEntity<Any> {
         return try {
-            libroBusiness.remove(idLibro)
-            ResponseEntity(HttpStatus.NO_CONTENT)
+            ResponseEntity(libroBusiness.remove(idLibro), HttpStatus.NO_CONTENT)
         } catch (e: BusinessException) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
-        } catch (e: BusinessException) {
+        } catch (e: NotFoundException) {
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
