@@ -55,10 +55,10 @@ class PersonaRestController {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         } else {
             return try {
-                personaBusiness.save(persona)
-                val responseHeader = HttpHeaders()
-                responseHeader.set("location", Constants.URL_BASE_PERSONAS + "/" + persona.id)
-                ResponseEntity(responseHeader, HttpStatus.CREATED)
+                //personaBusiness.save(persona)
+                //val responseHeader = HttpHeaders()
+                //responseHeader.set("location", Constants.URL_BASE_PERSONAS + "/" + persona.id)
+                ResponseEntity(personaBusiness.save(persona), HttpStatus.CREATED)
             } catch (e: BusinessException) {
                 ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
             }
@@ -68,8 +68,7 @@ class PersonaRestController {
         @PutMapping("")
         fun update(@RequestBody persona: Persona): ResponseEntity<Any> {
             return try {
-                personaBusiness.save(persona)
-                ResponseEntity(HttpStatus.OK)
+                ResponseEntity(personaBusiness.save(persona), HttpStatus.OK)
             } catch (e: BusinessException) {
                 ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
             }
@@ -78,11 +77,10 @@ class PersonaRestController {
         @DeleteMapping("/{id}")
         fun delete(@PathVariable("id") idPersona: Long): ResponseEntity<Any> {
             return try {
-                personaBusiness.remove(idPersona)
-                ResponseEntity(HttpStatus.NO_CONTENT)
+                ResponseEntity(personaBusiness.remove(idPersona), HttpStatus.NO_CONTENT)
             } catch (e: BusinessException) {
                 ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
-            } catch (e: BusinessException) {
+            } catch (e: NotFoundException) {
                 ResponseEntity(HttpStatus.NOT_FOUND)
             }
         }

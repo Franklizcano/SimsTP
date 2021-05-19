@@ -18,14 +18,19 @@ class RestapiApplicationTests {
 	//@Test
 	fun save() {
 		val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-		val libros = listOf(Libro("Mapamundi", "Creador"))
+		val libros = listOf(Libro("Mapamundi",
+				"Creador",
+				"historia",
+				4000,
+				4))
 		val persona1 = Persona(
 				38333444,
 				"Daniel",
 				"Gutierrez",
 				"La Plata",
 				libros,
-				LocalDate.parse("25-06-1999", formatter)
+				LocalDate.parse("25-06-1999", formatter),
+
 			)
 		personaRepository.save(persona1)
 	}

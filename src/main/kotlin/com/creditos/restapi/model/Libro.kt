@@ -10,6 +10,12 @@ data class Libro(
         val nombre:String,
         @Column
         val autor:String,
+        @Column
+        val genero:String,
+        @Column
+        val precio:Int,
+        @Column(name = "puntuacion_general")
+        val puntuacionGeneral:Int,
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id:Long? = null

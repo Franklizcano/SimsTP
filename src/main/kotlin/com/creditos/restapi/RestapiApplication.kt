@@ -11,8 +11,8 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @SpringBootApplication
-class RestapiApplication:CommandLineRunner {
-
+class RestapiApplication
+/*
 	@Autowired
 	private lateinit var personaRepository: PersonaRepository
 
@@ -33,7 +33,7 @@ class RestapiApplication:CommandLineRunner {
 		)
 		personaRepository.save(defaultpersona)
 	}
-}
+}*/
 
 fun main(args: Array<String>) {
 	runApplication<RestapiApplication>(*args)
