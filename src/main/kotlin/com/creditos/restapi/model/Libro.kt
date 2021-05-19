@@ -14,7 +14,7 @@ data class Libro(
         val genero:String,
         @Column
         val precio:Int,
-        @Column
+        @Column(name = "puntuacion_general")
         val puntuacionGeneral:Int,
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
