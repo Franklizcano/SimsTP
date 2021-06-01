@@ -1,36 +1,36 @@
 package com.creditos.restapi.model
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
 class TipoLibroStrategy {
 
-    val strategies = mapOf(
-        TipoLibroEnum.VIRTUAL to LibroVirtual(),
-        TipoLibroEnum.TAPA_BLANDA to LibroTapaBlanda(),
-        TipoLibroEnum.TAPA_DURA to LibroTapaDura(),
-    )
+    @Autowired
+    lateinit var libroVirtual: LibroVirtual
+    @Autowired
+    lateinit var libroTapaBlanda: LibroTapaBlanda
+    @Autowired
+    lateinit var libroTapaDura: LibroTapaDura
 
     fun mostrarMensajeLibro(tipoLibroEnum: TipoLibroEnum): String {
-        return strategies[tipoLibroEnum]!!.mostrarMensajeLibro()
-    }
-
-/*    fun mostrarMensajeLibro(tipoLibroEnum: TipoLibroEnum): String {
         return getStrategy(tipoLibroEnum).mostrarMensajeLibro()
     }
 
     private fun getStrategy(tipoLibroEnum: TipoLibroEnum): TipoLibro =
         when(tipoLibroEnum) {
-            TipoLibroEnum.VIRTUAL -> LibroVirtual()
-            TipoLibroEnum.TAPA_BLANDA -> LibroTapaBlanda()
-            TipoLibroEnum.TAPA_DURA ->  LibroTapaDura()
-        }*/
+            TipoLibroEnum.VIRTUAL -> libroVirtual
+            TipoLibroEnum.TAPA_BLANDA -> libroTapaBlanda
+            TipoLibroEnum.TAPA_DURA ->  libroTapaDura
+        }
 }
 
+@Component
 abstract class TipoLibro {
     abstract fun mostrarMensajeLibro(): String
 }
 
+@Component
 class LibroVirtual: TipoLibro() {
 
     override fun mostrarMensajeLibro(): String {
@@ -38,6 +38,7 @@ class LibroVirtual: TipoLibro() {
     }
 }
 
+@Component
 class LibroTapaBlanda: TipoLibro() {
 
     override fun mostrarMensajeLibro(): String {
@@ -45,6 +46,7 @@ class LibroTapaBlanda: TipoLibro() {
     }
 }
 
+@Component
 class LibroTapaDura: TipoLibro() {
 
     override fun mostrarMensajeLibro(): String {
