@@ -84,4 +84,11 @@ class PersonaRestController {
                 ResponseEntity(HttpStatus.NOT_FOUND)
             }
         }
+
+        @GetMapping("/{id}/mensajes-de-libros")
+        fun mostrarMensajesDeLibros(@PathVariable("id") idPersona: Long): ResponseEntity<List<String>> {
+            val persona = personaBusiness.load(idPersona)
+            val mostrarMensajesDeSusLibros = personaBusiness.mostrarMensajesDeSusLibros(persona.libros)
+            return ResponseEntity(mostrarMensajesDeSusLibros, HttpStatus.OK)
+        }
     }
