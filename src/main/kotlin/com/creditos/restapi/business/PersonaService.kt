@@ -1,11 +1,9 @@
 package com.creditos.restapi.business
 
 import com.creditos.restapi.dao.PersonaRepository
-import com.creditos.restapi.model.Persona
 import com.creditos.restapi.exception.BusinessException
 import com.creditos.restapi.exception.NotFoundException
-import com.creditos.restapi.model.Libro
-import com.creditos.restapi.model.TipoLibroStrategy
+import com.creditos.restapi.model.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
@@ -16,8 +14,12 @@ class PersonaService : BasicCrud {
 
     @Autowired
     private lateinit var personaRepository:PersonaRepository
+
     @Autowired
     private lateinit var tipoLibroStrategy: TipoLibroStrategy
+
+    @Autowired
+    private lateinit var tipoProfesionStrategy: TipoProfesionStrategy
 
     @Throws(BusinessException::class, NotFoundException::class)
     override fun list(): List<Persona> {
@@ -29,7 +31,7 @@ class PersonaService : BasicCrud {
         }
     }
 
-    override fun load(idPersona: Long): Persona {
+    override fun get(idPersona: Long): Persona {
         val op: Optional<Persona>
 
         try {
@@ -75,8 +77,10 @@ class PersonaService : BasicCrud {
             }
         }
     }
-
     fun mostrarMensajesDeSusLibros(listLibros: List<Libro>): List<String> {
         return listLibros.map { libro -> tipoLibroStrategy.mostrarMensajeLibro(libro.tipo) }
+    }
+    fun trabajar(TipoProfesionEnum: TipoProfesionEnum): String {
+        return tipoProfesionStrategy.trabajar(TipoProfesionEnum)
     }
 }

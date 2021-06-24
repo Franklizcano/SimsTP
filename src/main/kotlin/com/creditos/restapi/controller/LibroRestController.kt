@@ -6,7 +6,6 @@ import com.creditos.restapi.exception.NotFoundException
 import com.creditos.restapi.model.Libro
 import com.creditos.restapi.utils.Constants
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -28,7 +27,7 @@ class LibroRestController {
     }
 
     @GetMapping("/{id}")
-    fun load(@PathVariable("id") idLibro: Long): ResponseEntity<Any> {
+    fun get(@PathVariable("id") idLibro: Long): ResponseEntity<Any> {
         return try {
             ResponseEntity(libroBusiness.load(idLibro), HttpStatus.OK)
         } catch (e: BusinessException) {

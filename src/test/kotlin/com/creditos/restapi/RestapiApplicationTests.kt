@@ -2,10 +2,9 @@ package com.creditos.restapi
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import com.creditos.restapi.model.Persona
-import com.creditos.restapi.model.Libro
 import com.creditos.restapi.dao.PersonaRepository
-import com.creditos.restapi.model.TipoLibroEnum
+import com.creditos.restapi.model.*
+import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -15,8 +14,7 @@ class RestapiApplicationTests {
 	@Autowired
 	private lateinit var personaRepository: PersonaRepository
 
-
-	//@Test
+	@Test
 	fun save() {
 		val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
 		val libros = listOf(Libro("Mapamundi",
@@ -31,6 +29,7 @@ class RestapiApplicationTests {
 				"Gutierrez",
 				"La Plata",
 				libros,
+				TipoProfesionEnum.Policia,
 				LocalDate.parse("25-06-1999", formatter),
 
 			)
