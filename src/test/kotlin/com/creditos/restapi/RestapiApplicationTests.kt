@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter
 import com.creditos.restapi.model.Persona
 import com.creditos.restapi.model.Libro
 import com.creditos.restapi.dao.PersonaRepository
+import com.creditos.restapi.model.TipoLibroEnum
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -22,7 +23,8 @@ class RestapiApplicationTests {
 				"Creador",
 				"historia",
 				4000,
-				4))
+				4,
+				TipoLibroEnum.VIRTUAL))
 		val persona1 = Persona(
 				38333444,
 				"Daniel",
