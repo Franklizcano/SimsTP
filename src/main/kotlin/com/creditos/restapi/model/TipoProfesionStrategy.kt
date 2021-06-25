@@ -13,16 +13,16 @@ class TipoProfesionStrategy {
     @Autowired
     lateinit var profesionIngeniero: ProfesionIngeniero
 
+    fun trabajar(persona: Persona): String {
+        return getStrategy(persona.profesion).trabajar(persona)
+    }
+
     private fun getStrategy(tipoProfesionEnum: TipoProfesionEnum): TipoProfesion =
         when(tipoProfesionEnum) {
             TipoProfesionEnum.Ingeniero -> profesionIngeniero
             TipoProfesionEnum.Medico -> profesionMedico
             TipoProfesionEnum.Policia -> profesionPolicia
         }
-
-    fun trabajar(persona: Persona): String {
-        return getStrategy(persona.profesion).trabajar(persona)
-    }
 }
 
 @Component
