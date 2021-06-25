@@ -8,10 +8,8 @@ class TipoProfesionStrategy {
 
     @Autowired
     lateinit var profesionPolicia: ProfesionPolicia
-
     @Autowired
     lateinit var profesionMedico: ProfesionMedico
-
     @Autowired
     lateinit var profesionIngeniero: ProfesionIngeniero
 
@@ -22,8 +20,8 @@ class TipoProfesionStrategy {
             TipoProfesionEnum.Policia -> profesionPolicia
         }
 
-    fun trabajar(persona: Persona, tipoProfesionEnum: TipoProfesionEnum): String {
-        return getStrategy(tipoProfesionEnum).trabajar(persona)
+    fun trabajar(persona: Persona): String {
+        return getStrategy(persona.profesion).trabajar(persona)
     }
 }
 
@@ -36,8 +34,7 @@ interface TipoProfesion {
 class ProfesionPolicia: TipoProfesion {
     override fun trabajar(persona: Persona): String {
         persona.dinero += 500
-        println("Trabajaste como policía y has cobrado: 500\nTu dinero actual es ${persona.dinero}")
-        return "Estás atrapando a los malandros"
+        return "Trabajaste como policía y has cobrado: 500\nTu dinero actual es ${persona.dinero}"
     }
 }
 
@@ -45,8 +42,7 @@ class ProfesionPolicia: TipoProfesion {
 class ProfesionMedico: TipoProfesion {
     override fun trabajar(persona: Persona): String {
         persona.dinero += 1000
-        println("Trabajaste como médico y has cobrado: 1000\nTu dinero actual es ${persona.dinero}")
-        return "Estas curando a los heridos"
+        return "Trabajaste como médico y has cobrado: 1000\nTu dinero actual es ${persona.dinero}"
     }
 }
 
@@ -54,7 +50,6 @@ class ProfesionMedico: TipoProfesion {
 class ProfesionIngeniero: TipoProfesion {
     override fun trabajar(persona: Persona): String {
         persona.dinero += 1500
-        println("Trabajaste como ingeniero y has cobrado: 1500\nTu dinero actual es ${persona.dinero}")
-        return "Estás solucionando problemas"
+        return "Trabajaste como ingeniero y has cobrado: 1500\nTu dinero actual es ${persona.dinero}"
     }
 }

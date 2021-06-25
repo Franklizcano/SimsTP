@@ -23,7 +23,7 @@ class RestapiApplicationTests {
 				4000,
 				4,
 				TipoLibroEnum.VIRTUAL))
-		val persona1 = Persona(
+		val persona = Persona(
 				38333444,
 				"Daniel",
 				"Gutierrez",
@@ -33,6 +33,6 @@ class RestapiApplicationTests {
 				LocalDate.parse("25-06-1999", formatter),
 
 			)
-		personaRepository.save(persona1)
+		personaRepository.save(persona)
 	}
 }

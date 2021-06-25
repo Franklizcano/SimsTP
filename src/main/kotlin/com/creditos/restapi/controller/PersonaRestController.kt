@@ -84,10 +84,15 @@ class PersonaRestController {
             val mostrarMensajesDeSusLibros = personaBusiness.mostrarMensajesDeSusLibros(persona.libros)
             return ResponseEntity(mostrarMensajesDeSusLibros, HttpStatus.OK)
         }
+
         @PostMapping("/{id}/trabajo")
         fun trabajar(@PathVariable("id") idPersona: Long): ResponseEntity<String> {
-            val persona = personaBusiness.get(idPersona)
-            val trabajar = personaBusiness.trabajar(persona, persona.profesion)
-            return ResponseEntity(trabajar, HttpStatus.OK)
+            return try {
+                val persona = personaBusiness.get(idPersona)
+                val trabajar = personaBusiness.trabajar(persona)
+                return ResponseEntity(trabajar, HttpStatus.OK)
+            } catch (e: NotFoundException) {
+                ResponseEntity(HttpStatus.NOT_FOUND)
+            }
         }
 }

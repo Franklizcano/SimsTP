@@ -34,26 +34,15 @@ class TrabajarPersonaTest {
                 TipoProfesionEnum.Policia,
                 LocalDate.parse("25-06-1999", formatter))
 
-            tipoProfesionStrategy.trabajar(persona, persona.profesion)
+            tipoProfesionStrategy.trabajar(persona)
             println("-------")
 
-            val persona2 = persona.copy(38333444,
-            "Daniel",
-            "Gutierrez",
-            1000,
-            libros,
-            TipoProfesionEnum.Medico,
-            LocalDate.parse("25-06-1999", formatter))
-            tipoProfesionStrategy.trabajar(persona, persona2.profesion)
+            val persona2 = persona.copy(profesion = TipoProfesionEnum.Medico)
+            tipoProfesionStrategy.trabajar(persona2)
             println("-------")
-            val persona3 = persona.copy(38333444,
-                "Daniel",
-                "Gutierrez",
-                700,
-                libros,
-                TipoProfesionEnum.Ingeniero,
-                LocalDate.parse("25-06-1999", formatter))
-            tipoProfesionStrategy.trabajar(persona, persona3.profesion)
+
+            val persona3 = persona.copy(profesion = TipoProfesionEnum.Ingeniero)
+            tipoProfesionStrategy.trabajar(persona3)
         }
     }
 
