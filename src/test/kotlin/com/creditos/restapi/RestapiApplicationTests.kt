@@ -27,7 +27,7 @@ class RestapiApplicationTests {
 				38333444,
 				"Daniel",
 				"Gutierrez",
-				"La Plata",
+				1000,
 				libros,
 				TipoProfesionEnum.Policia,
 				LocalDate.parse("25-06-1999", formatter),

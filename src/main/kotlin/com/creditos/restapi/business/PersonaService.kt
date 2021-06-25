@@ -80,7 +80,7 @@ class PersonaService : BasicCrud {
     fun mostrarMensajesDeSusLibros(listLibros: List<Libro>): List<String> {
         return listLibros.map { libro -> tipoLibroStrategy.mostrarMensajeLibro(libro.tipo) }
     }
-    fun trabajar(TipoProfesionEnum: TipoProfesionEnum): String {
-        return tipoProfesionStrategy.trabajar(TipoProfesionEnum)
+    fun trabajar(persona: Persona, tipoProfesionEnum: TipoProfesionEnum): String {
+        return tipoProfesionStrategy.trabajar(persona, tipoProfesionEnum)
     }
 }

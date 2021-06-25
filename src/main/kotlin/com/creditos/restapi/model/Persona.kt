@@ -10,7 +10,7 @@ data class Persona(
     val dni: Long,
     val nombre: String,
     val apellido: String,
-    val domicilio: String,
+    var dinero: Int,
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = [CascadeType.ALL])
     @JoinColumn(name = "persona_id", nullable = true)
     val libros: List<Libro>,

@@ -8,7 +8,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @SpringBootTest
-class trabajarPersonaTest {
+class TrabajarPersonaTest {
 
     @Autowired
     private lateinit var tipoProfesionStrategy: TipoProfesionStrategy
@@ -29,31 +29,31 @@ class trabajarPersonaTest {
                 38333444,
                 "Daniel",
                 "Gutierrez",
-                "La Plata",
+                500,
                 libros,
                 TipoProfesionEnum.Policia,
                 LocalDate.parse("25-06-1999", formatter))
 
-            tipoProfesionStrategy.trabajar(persona.profesion)
+            tipoProfesionStrategy.trabajar(persona, persona.profesion)
             println("-------")
 
             val persona2 = persona.copy(38333444,
             "Daniel",
             "Gutierrez",
-            "La Plata",
+            1000,
             libros,
             TipoProfesionEnum.Medico,
             LocalDate.parse("25-06-1999", formatter))
-            tipoProfesionStrategy.trabajar(persona2.profesion)
+            tipoProfesionStrategy.trabajar(persona, persona2.profesion)
             println("-------")
             val persona3 = persona.copy(38333444,
                 "Daniel",
                 "Gutierrez",
-                "La Plata",
+                700,
                 libros,
                 TipoProfesionEnum.Ingeniero,
                 LocalDate.parse("25-06-1999", formatter))
-            tipoProfesionStrategy.trabajar(persona3.profesion)
+            tipoProfesionStrategy.trabajar(persona, persona3.profesion)
         }
     }
 

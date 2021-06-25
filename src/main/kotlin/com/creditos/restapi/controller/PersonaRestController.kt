@@ -85,11 +85,9 @@ class PersonaRestController {
             return ResponseEntity(mostrarMensajesDeSusLibros, HttpStatus.OK)
         }
         @PostMapping("/{id}/trabajo")
-        fun trabajar(@PathVariable("id") idPersona: Long): ResponseEntity<Any> {
+        fun trabajar(@PathVariable("id") idPersona: Long): ResponseEntity<String> {
             val persona = personaBusiness.get(idPersona)
-            val trabajar = personaBusiness.trabajar(persona.profesion)
+            val trabajar = personaBusiness.trabajar(persona, persona.profesion)
             return ResponseEntity(trabajar, HttpStatus.OK)
-            //Persona.dinero += profesion.sueldo
-            //println("Has cobrado: ${profesion.sueldo}\nTu dinero actual es ${this.dinero}")
         }
 }
