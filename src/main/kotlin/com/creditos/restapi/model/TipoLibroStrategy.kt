@@ -50,6 +50,6 @@ class LibroTapaBlanda: TipoLibro() {
 class LibroTapaDura: TipoLibro() {
 
     override fun mostrarMensajeLibro(): String {
-        return "Que libro tan resistente";
+        return "Que libro tan resistente"
     }
 }
