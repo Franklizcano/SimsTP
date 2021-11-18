@@ -29,9 +29,9 @@ class TrabajarPersonaTest {
                 38333444,
                 "Daniel",
                 "Gutierrez",
-                500,
                 libros,
                 TipoProfesionEnum.Policia,
+                2000,
                 LocalDate.parse("25-06-1999", formatter))
 
             tipoProfesionStrategy.trabajar(persona)

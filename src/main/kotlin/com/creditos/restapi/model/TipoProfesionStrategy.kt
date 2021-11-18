@@ -33,7 +33,7 @@ interface TipoProfesion {
 @Component
 class ProfesionPolicia: TipoProfesion {
     override fun trabajar(persona: Persona): String {
-        persona.dinero += 500
+        persona.dinero += 8
         return "Trabajaste como policía y has cobrado: 500\nTu dinero actual es ${persona.dinero}"
     }
 }
