@@ -27,10 +27,10 @@ class RestapiApplicationTests {
 				38333444,
 				"Daniel",
 				"Gutierrez",
-				1000,
 				libros,
 				TipoProfesionEnum.Policia,
-				LocalDate.parse("25-06-1999", formatter),
+				1000,
+				LocalDate.parse("25-06-1999", formatter)
 
 			)
 		personaRepository.save(persona)

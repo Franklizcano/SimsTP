@@ -43,11 +43,11 @@ class PersonaRestController {
 
     @PostMapping("")
     fun insert(@Validated @RequestBody persona: Persona): ResponseEntity<Any> {
-        if (persona.nombre.isEmpty() == true) {
+        return if (persona.nombre.isEmpty()) {
             println("El nombre esta vacio")
-            return ResponseEntity(HttpStatus.BAD_REQUEST)
+            ResponseEntity(HttpStatus.BAD_REQUEST)
         } else {
-            return try {
+            try {
                 //personaBusiness.save(persona)
                 //val responseHeader = HttpHeaders()
                 //responseHeader.set("location", Constants.URL_BASE_PERSONAS + "/" + persona.id)
@@ -90,6 +90,7 @@ class PersonaRestController {
             return try {
                 val persona = personaBusiness.get(idPersona)
                 val trabajar = personaBusiness.trabajar(persona)
+                personaBusiness.save(persona)
                 return ResponseEntity(trabajar, HttpStatus.OK)
             } catch (e: NotFoundException) {
                 ResponseEntity(HttpStatus.NOT_FOUND)
