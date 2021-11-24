@@ -1,4 +1,4 @@
-package com.creditos.restapi.business
+package com.creditos.restapi.service
 
 import com.creditos.restapi.dao.PersonaRepository
 import com.creditos.restapi.exception.BusinessException
@@ -10,7 +10,7 @@ import java.util.*
 import kotlin.jvm.Throws
 
 @Service
-class PersonaService : BasicCrud {
+class PersonaService: BasicCrud<Persona, Long> {
 
     @Autowired
     private lateinit var personaRepository:PersonaRepository
@@ -31,47 +31,47 @@ class PersonaService : BasicCrud {
         }
     }
 
-    override fun get(idPersona: Long): Persona {
+    override fun get(id: Long): Persona {
         val op: Optional<Persona>
 
         try {
-            op = personaRepository.findById(idPersona)
+            op = personaRepository.findById(id)
         } catch (e: Exception) {
             throw BusinessException(e.message)
         }
 
         if (!op.isPresent) {
-            throw NotFoundException("No se encontró la persona con id $idPersona")
+            throw NotFoundException("No se encontró la persona con id $id")
         }
 
         return op.get()
     }
 
     @Throws(BusinessException::class)
-    override fun save(persona: Persona): Persona {
+    override fun save(t: Persona): Persona {
 
         try {
-            return personaRepository.save(persona)
+            return personaRepository.save(t)
         } catch (e: Exception) {
             throw BusinessException(e.message)
         }
     }
 
-    override fun remove(idPersona: Long) {
+    override fun remove(id: Long) {
 
         val op: Optional<Persona>
 
         try {
-            op = personaRepository.findById(idPersona)
+            op = personaRepository.findById(id)
         } catch (e: Exception) {
             throw BusinessException(e.message)
         }
 
         if(!op.isPresent){
-            throw NotFoundException("No se encontró la persona con id $idPersona")
+            throw NotFoundException("No se encontró la persona con id $id")
         } else {
             try {
-                personaRepository.deleteById(idPersona)
+                personaRepository.deleteById(id)
             } catch (e: Exception) {
                 throw BusinessException(e.message)
             }

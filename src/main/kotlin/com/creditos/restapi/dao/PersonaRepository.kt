@@ -5,5 +5,4 @@ import org.springframework.stereotype.Repository
 import org.springframework.data.jpa.repository.JpaRepository
 
 @Repository
-interface PersonaRepository: JpaRepository<Persona,Long> {
-}
+interface PersonaRepository: JpaRepository<Persona,Long>
