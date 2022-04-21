@@ -5,5 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository
 import com.creditos.restapi.model.Libro
 
 @Repository
-interface LibroRepository: JpaRepository<Libro,Long> {
-}
+interface LibroRepository: JpaRepository<Libro,Long>

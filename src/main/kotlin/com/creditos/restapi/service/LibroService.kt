@@ -1,4 +1,4 @@
-package com.creditos.restapi.business
+package com.creditos.restapi.service
 
 import com.creditos.restapi.dao.LibroRepository
 import com.creditos.restapi.model.Libro
@@ -10,7 +10,7 @@ import java.util.*
 import kotlin.jvm.Throws
 
 @Service
-class LibroService: BasicCrudLibro {
+abstract class LibroService: BasicCrud<Libro, Long> {
 
     @Autowired
     private lateinit var libroRepository:LibroRepository
@@ -25,46 +25,46 @@ class LibroService: BasicCrudLibro {
         }
     }
 
-    override fun load(idLibro: Long): Libro {
+    override fun get(id: Long): Libro {
         val op: Optional<Libro>
 
         try {
-            op = libroRepository.findById(idLibro)
+            op = libroRepository.findById(id)
         } catch (e: Exception) {
             throw BusinessException(e.message)
         }
 
         if (!op.isPresent) {
-            throw NotFoundException("No se encontró el libro con id $idLibro")
+            throw NotFoundException("No se encontró el libro con id $id")
         }
 
         return op.get()
     }
 
     @Throws(BusinessException::class)
-    override fun save(libro: Libro): Libro {
+    override fun save(t: Libro): Libro {
 
         try {
-            return libroRepository.save(libro)
+            return libroRepository.save(t)
         } catch (e: Exception) {
             throw BusinessException(e.message)
         }
     }
-    override fun remove(idLibro: Long) {
+    override fun remove(id: Long) {
 
         val op: Optional<Libro>
 
         try {
-            op = libroRepository.findById(idLibro)
+            op = libroRepository.findById(id)
         } catch (e: Exception) {
             throw BusinessException(e.message)
         }
 
         if(!op.isPresent){
-            throw NotFoundException("No se encontró el libro con id $idLibro")
+            throw NotFoundException("No se encontró el libro con id $id")
         }else{
             try {
-                libroRepository.deleteById(idLibro)
+                libroRepository.deleteById(id)
             } catch (e: Exception) {
                 throw BusinessException(e.message)
             }
