@@ -16,6 +16,7 @@ data class Persona(
     @Enumerated(EnumType.STRING)
     var profesion: TipoProfesionEnum,
     var dinero: Int = 100,
+    @Column(name = "fecha_nac")
     val fechaNac: LocalDate? = LocalDate.now(),
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
