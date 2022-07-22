@@ -1,8 +1,8 @@
 package com.creditos.restapi.dao
 
-import com.creditos.restapi.model.Persona
 import org.springframework.stereotype.Repository
 import org.springframework.data.jpa.repository.JpaRepository
+import com.creditos.restapi.model.Libro
 
 @Repository
-interface PersonaRepository: JpaRepository<Persona,Long>
+interface LibroRepository: JpaRepository<Libro,Long>
